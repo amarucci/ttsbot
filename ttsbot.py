@@ -9,8 +9,7 @@ bot = telebot.TeleBot(TOKEN)
 @bot.message_handler(commands=['tts'])
 def handle_tts(message):
     try:
-        text = message.text[5:]
-        print(text)
+        text = [x[5:] for x in message.text.split() if not any('@' in x)]
         os.system("espeak -w speech.wav " + text)
 
         audio = open('speech.wav','rb')
